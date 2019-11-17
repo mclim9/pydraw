@@ -1,0 +1,23 @@
+### Build directories
+/dist/
+/build/
+/*.egg-info/
+
+### Administrative
+*.pyc
+*.lnk
+*.code-workspace
+*.bat
+
+### Data files
+*.csv
+*.json
+*.jpg
+*.pdf
+*.ppt
+*.pptx
+*.rsi
+*.xls
+*.xlsx
+*.xlsm
+*.zip
