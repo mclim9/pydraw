@@ -49,6 +49,10 @@ class squareFace:
         self.eyeType    = random.choice(Eyes)
         self.eyeSize    = int(self.size/10)
         self.eyePupil   = int(self.eyeSize*random.choice(Pupils))
+        if self.size < 20:
+            self.eyeType    = 'Small'
+            self.eyeSize    = 1
+            self.eyePupil   = 1
 
     def draw(self, screen):
         self.screen = screen
@@ -76,13 +80,17 @@ class squareFace:
             pygame.draw.aaline(self.screen, BLACK, (self.x + eyeOffX + self.eyeSize, self.y), (self.x + eyeOffX - self.eyeSize, self.y), 1)
 
     def draw_eyeCircle(self, x, y, radius, color):
-        pygame.gfxdraw.filled_circle(self.screen, x, y, radius, color)      #Draw filled in circle
+        if radius > 1:
+            pygame.gfxdraw.filled_circle(self.screen, x, y, radius, color)      #Draw filled in circle
         pygame.gfxdraw.aacircle(self.screen, x, y, radius, color)           #AntiAlias edge
 
     def draw_mouth(self):
         mouthArry = ['open','line','smile','dot','open','line','smile','open','line','smile','dot']
         mouth = random.choice(mouthArry)
         mouthSize = int(self.size/20)
+        if self.size < 20:
+            mouthSize = 2
+            mouth     = 'dot'
         if mouth == 'open':
             mouthOff = int(self.size/5)
             pygame.gfxdraw.filled_circle(self.screen, self.x, self.y+mouthOff,mouthSize,BLACK)

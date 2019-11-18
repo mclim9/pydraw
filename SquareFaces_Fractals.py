@@ -7,20 +7,21 @@
 ################################################################################
 ### User Inputs
 ################################################################################
-FaceSize  = 100
+FaceSize  = 256
 TimeFactor = 0.5
 
 ################################################################################
 ### Code Begin
 ################################################################################
-numCol      = 5
-numRow      = 5
+numCol      = 3
+numRow      = 3
 ScrWid      = numCol * FaceSize
 ScrHeight   = numRow * FaceSize
 
 import pygame
 import math
 import time
+import random
 from SquareFaces import squareFace
 
 ################################################################################
@@ -33,6 +34,19 @@ flags = DOUBLEBUF       # FULLSCREEN | DOUBLEBUF
 ################################################################################
 ### Definitions
 ################################################################################
+def faceRecurs(facearry):
+    for i,thisFace in enumerate(facearry):
+        if random.randint(0,100) < 40:
+            if thisFace.size > 20:
+                newSize = int(thisFace.size/2)
+                offset  = int(newSize/2)
+                x = thisFace.x
+                y = thisFace.y
+                facearry[i] = squareFace(x-offset,y-offset,newSize)     #Upper left
+                facearry.append(squareFace(x+offset,y-offset,newSize)) #Upper right
+                facearry.append(squareFace(x-offset,y+offset,newSize)) #Lower left
+                facearry.append(squareFace(x+offset,y+offset,newSize)) #Lower right
+
 ################################################################################
 ### Main Code
 ################################################################################
@@ -63,6 +77,9 @@ def main():
             xPos = int(i * FaceSize + FaceSize/2)
             yPos = int(j * FaceSize + FaceSize/2)
             SmilyArry.append(squareFace(xPos,yPos,FaceSize))
+
+    faceRecurs(SmilyArry)
+    faceRecurs(SmilyArry)
 
     while not done:
         #######################################################################
