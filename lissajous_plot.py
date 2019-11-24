@@ -77,8 +77,8 @@ class lissajous:
 class circleX:
     def __init__(self,col):
         self.ljlines    = []
-        self.color      = WHITE
-        self.a          = 1
+        self.color      = WHITE         #Lissajous
+        self.a          = 1             #Frequency multiplier
         self.centerX    = (col + 1) * (Radius + Gap) * 2 + Radius 
         self.centerY    = Radius
         self.endX       = 0
