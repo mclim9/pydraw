@@ -13,8 +13,8 @@ TimeFactor = 0.5
 ################################################################################
 ### Code Begin
 ################################################################################
-numCol      = 3
-numRow      = 3
+numCol      = 2
+numRow      = 2
 ScrWid      = numCol * FaceSize
 ScrHeight   = numRow * FaceSize
 
@@ -66,7 +66,7 @@ def main():
     ### Font
     #############################################################################
     pygame.font.init() # you have to call this at the start, 
-    # myfont = pygame.font.SysFont('Courier', 20, bold=True)
+    myfont = pygame.font.SysFont('Courier', 20, bold=True)
 
     ###########################################################################
     ### Main Code
@@ -97,6 +97,10 @@ def main():
         for face in SmilyArry:
             face.draw(screen)
         clock.tick(0.5)                  # Limit to 60 frames per second
+        outText = "Emma Lim"
+        textsurface = myfont.render(outText, True, (255, 255, 255)) #render
+        screen.blit(textsurface,(0,0))  # Draw text
+
         pygame.display.update()         # update the screen with what we've drawn.
     #End While
     # var = input("Please enter something: ")

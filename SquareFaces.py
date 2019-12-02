@@ -68,7 +68,7 @@ class squareFace:
 
     def draw_eyes(self):
         eyeOffX = int(self.size/5)
-        if random.randint(0,100) > 10:
+        if random.randint(0,100) > 1:
             """Draw eyes w/ pupil"""
             self.draw_eyeCircle(self.x + eyeOffX, self.y, self.eyeSize,  WHITE)
             self.draw_eyeCircle(self.x - eyeOffX, self.y, self.eyeSize,  WHITE)
