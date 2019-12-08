@@ -10,13 +10,15 @@
 glyphSize   = 128
 glyphSizeX  = 6
 glyphSizeY  = 6
-glyphPtSpc  = 15
+glyphPtSpc  = 10
 glyphSize   = (glyphSizeX + 2) * glyphPtSpc
+symmetryV    = 1
+
 ################################################################################
 ### Code Begin
 ################################################################################
-numCol      = 5
-numRow      = 5
+numCol      = 10
+numRow      = 10
 ScrWid      = numCol * glyphSize
 ScrHeight   = numRow * glyphSize
 
@@ -45,23 +47,30 @@ class glyph:
     def __init__(self,xPos,yPos,Size):
         self.size       = Size
         self.color      = random.choice(Colors)
+        self.color      = WHITE
         self.x          = int(xPos)
         self.y          = int(yPos)
         self.Xorigin    = int(self.x - self.size/2)
         self.Yorigin    = int(self.y - self.size/2)
         self.segments   = []
-        for i in range(glyphSizeX):
+
+        for i in range(int(glyphSizeX/2)):
             for j in range(glyphSizeY):
-                curri = self.Xorigin + (i+1) * glyphPtSpc
-                currj = self.Yorigin + (j+1) * glyphPtSpc
-                if random.randint(0,100) < 70:      #Hori Line
-                    self.segments.append([(curri,currj),(curri+glyphPtSpc,currj)])
-                if random.randint(0,100) < 50:      #Vert Line
-                    self.segments.append([(curri,currj),(curri,currj+glyphPtSpc)])
+                UpRti = self.Xorigin + (i+1) * glyphPtSpc
+                UpRtj = self.Yorigin + (j+1) * glyphPtSpc
+                UpLti = self.Xorigin + (glyphSizeX - i) * glyphPtSpc
+                UpRtj = self.Yorigin + (j+1) * glyphPtSpc
+                if random.randint(0,100) < 50:      #Hori Line
+                    self.segments.append([(UpRti,UpRtj),(UpRti+glyphPtSpc,UpRtj)])
+                    self.segments.append([(UpLti,UpRtj),(UpLti-glyphPtSpc,UpRtj)])
+                if random.randint(0,100) < 65:      #Vert Line
+                    self.segments.append([(UpRti,UpRtj),(UpRti,UpRtj+glyphPtSpc)])
+                    self.segments.append([(UpLti,UpRtj),(UpLti,UpRtj+glyphPtSpc)])
+                # if random.randint(0,200) < 1:      #Diag Line
+                #     self.segments.append([(UpRti,UpRtj),(UpRti+glyphPtSpc,UpRtj+glyphPtSpc)])
+                #     self.segments.append([(UpLti,UpRtj),(UpLti-glyphPtSpc,UpRtj+glyphPtSpc)])
                 # if random.randint(0,100) < 5:      #Diag Line
-                #     self.segments.append([(curri,currj),(curri+glyphPtSpc,currj+glyphPtSpc)])
-                # if random.randint(0,100) < 5:      #Diag Line
-                #     self.segments.append([(curri+glyphPtSpc,currj),(curri,currj+glyphPtSpc)])
+                #     self.segments.append([(UpRti+glyphPtSpc,UpRtj),(UpRti,UpRtj+glyphPtSpc)])
 
     def draw(self, screen):
         self.screen = screen
