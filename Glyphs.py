@@ -7,20 +7,19 @@
 ################################################################################
 ### User Inputs
 ################################################################################
-glyphSize   = 128
 glyphSizeX  = 6
 glyphSizeY  = 6
 glyphPtSpc  = 10
 glyphSize   = (glyphSizeX + 2) * glyphPtSpc
-symmetryV    = 1
-
+symmetryV   = 1
+bkgColor    = (255, 255, 255)
 ################################################################################
 ### Code Begin
 ################################################################################
-numCol      = 10
-numRow      = 10
-ScrWid      = numCol * glyphSize
-ScrHeight   = numRow * glyphSize
+numCol      = 5
+numRow      = 5
+ScrWid      = (numCol + 2) * glyphSize
+ScrHeight   = (numRow + 2) * glyphSize
 
 import pygame
 import random
@@ -47,14 +46,15 @@ class glyph:
     def __init__(self,xPos,yPos,Size):
         self.size       = Size
         self.color      = random.choice(Colors)
-        self.color      = WHITE
+        self.color      = bkgColor
         self.x          = int(xPos)
         self.y          = int(yPos)
         self.Xorigin    = int(self.x - self.size/2)
         self.Yorigin    = int(self.y - self.size/2)
         self.segments   = []
 
-        for i in range(int(glyphSizeX/2)):
+        numI = int(glyphSizeX/2) if symmetryV else glyphSizeX
+        for i in range(numI):
             for j in range(glyphSizeY):
                 UpRti = self.Xorigin + (i+1) * glyphPtSpc
                 UpRtj = self.Yorigin + (j+1) * glyphPtSpc
@@ -62,10 +62,10 @@ class glyph:
                 UpRtj = self.Yorigin + (j+1) * glyphPtSpc
                 if random.randint(0,100) < 50:      #Hori Line
                     self.segments.append([(UpRti,UpRtj),(UpRti+glyphPtSpc,UpRtj)])
-                    self.segments.append([(UpLti,UpRtj),(UpLti-glyphPtSpc,UpRtj)])
+                    if symmetryV: self.segments.append([(UpLti,UpRtj),(UpLti-glyphPtSpc,UpRtj)])
                 if random.randint(0,100) < 65:      #Vert Line
                     self.segments.append([(UpRti,UpRtj),(UpRti,UpRtj+glyphPtSpc)])
-                    self.segments.append([(UpLti,UpRtj),(UpLti,UpRtj+glyphPtSpc)])
+                    if symmetryV: self.segments.append([(UpLti,UpRtj),(UpLti,UpRtj+glyphPtSpc)])
                 # if random.randint(0,200) < 1:      #Diag Line
                 #     self.segments.append([(UpRti,UpRtj),(UpRti+glyphPtSpc,UpRtj+glyphPtSpc)])
                 #     self.segments.append([(UpLti,UpRtj),(UpLti-glyphPtSpc,UpRtj+glyphPtSpc)])
@@ -103,8 +103,8 @@ def main():
     glyphArry = []
     for i in range(numCol):
         for j in range(numRow):
-            xPos = int(i * glyphSize + glyphSize/2)
-            yPos = int(j * glyphSize + glyphSize/2)
+            xPos = int((i+1) * glyphSize + glyphSize/2)
+            yPos = int((j+1) * glyphSize + glyphSize/2)
             glyphArry.append(glyph(xPos,yPos,glyphSize))
 
 
@@ -120,12 +120,13 @@ def main():
         #######################################################################
         ### Drawing Code
         #######################################################################
-        screen.fill(BLACK)              # Set the screen background
+        screen.fill(bkgColor)              # Set the screen background
         for face in glyphArry:
             face.draw(screen)
-        clock.tick(0.5)                  # Limit to 60 frames per second
+        clock.tick(0.5)                 # Limit to 60 frames per second
         pygame.display.update()         # update the screen with what we've drawn.
     #End While
+    pygame.image.save(screen, f"Glyph_{numCol}x{numRow}_{glyphSize}x{glyphSizeX}x{glyphSizeY}_SymV{symmetryV}.jpg")
     # var = input("Please enter something: ")
 
 if __name__ == "__main__":
