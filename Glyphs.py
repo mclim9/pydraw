@@ -9,15 +9,15 @@
 ################################################################################
 glyphSizeX  = 6
 glyphSizeY  = 6
-glyphPtSpc  = 10
+glyphPtSpc  = 8
 glyphSize   = (glyphSizeX + 2) * glyphPtSpc
 symmetryV   = 1
 bkgColor    = (255, 255, 255)
 ################################################################################
 ### Code Begin
 ################################################################################
-numCol      = 5
-numRow      = 5
+numCol      = 10
+numRow      = 10
 ScrWid      = (numCol + 2) * glyphSize
 ScrHeight   = (numRow + 2) * glyphSize
 
@@ -82,6 +82,8 @@ class glyph:
         pygame.draw.rect(self.screen, self.color , (self.Xorigin,self.Yorigin,self.size,self.size), 0)
         pygame.draw.rect(self.screen, WHITE      , (self.Xorigin,self.Yorigin,self.size,self.size), 1)
 
+def makeGlyph(self):
+    print('Hello')
 
 ################################################################################
 ### Main Code
@@ -100,15 +102,14 @@ def main():
     ###########################################################################
     ### Main Code
     ###########################################################################
-    glyphArry = []
-    for i in range(numCol):
-        for j in range(numRow):
-            xPos = int((i+1) * glyphSize + glyphSize/2)
-            yPos = int((j+1) * glyphSize + glyphSize/2)
-            glyphArry.append(glyph(xPos,yPos,glyphSize))
-
-
     while not done:
+        glyphArry = []
+        for i in range(numCol):
+            for j in range(numRow):
+                xPos = int((i+1) * glyphSize + glyphSize/2)
+                yPos = int((j+1) * glyphSize + glyphSize/2)
+                glyphArry.append(glyph(xPos,yPos,glyphSize))
+
         #######################################################################
         ### Event Processing
         #######################################################################
