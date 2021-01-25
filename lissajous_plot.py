@@ -28,19 +28,11 @@ import pygame
 import random
 import math
 import time
+from colors import *
 
 ################################################################################
 ### Define colors
 ################################################################################
-BLACK   = (0, 0, 0)
-GREY    = (100,100,100)
-WHITE   = (255, 255, 255)
-RED     = (255, 0, 0)
-ORANGE  = (255, 165, 0)
-YELLOW  = (255, 255, 0)
-GREEN   = (0, 255, 0)
-BLUE    = (0,0,255)
-PURPLE  = (128,0,128)
 Colors  = [RED,ORANGE,YELLOW,GREEN,BLUE,PURPLE]
 
 from pygame.locals import DOUBLEBUF, FULLSCREEN

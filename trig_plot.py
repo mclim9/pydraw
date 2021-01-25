@@ -29,20 +29,12 @@ import pygame
 import random
 import math
 import time
+from colors import *
 
 ################################################################################
 ### Define colors
 ################################################################################
-BLACK   = (0, 0, 0)
-GREY    = (100,100,100)
-WHITE   = (255, 255, 255)
-RED     = (255, 0, 0)
-ORANGE  = (255, 165, 0)
-YELLOW  = (255, 255, 0)
-GREEN   = (0, 255, 0)
-BLUE    = (0,0,255)
-PURPLE  = (128,0,128)
-Colors  = [RED,ORANGE,YELLOW,GREEN,BLUE,PURPLE]
+Colors  = [RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE]
 
 from pygame.locals import DOUBLEBUF, FULLSCREEN
 # flags = FULLSCREEN | DOUBLEBUF
@@ -106,14 +98,14 @@ def main():
     screen = pygame.display.set_mode(size,flags)
     screen.set_alpha(None)
 
-    pygame.display.set_caption("Lissajous Plot")
+    pygame.display.set_caption("Trig Plot")
     done                 = False
     selected_lissajous   = None
     clock = pygame.time.Clock()     # Manage screen updates
 
-    #############################################################################
+    ###########################################################################
     ### Font
-    #############################################################################
+    ###########################################################################
     pygame.font.init() # you have to call this at the start, 
     myfont = pygame.font.SysFont('Courier', 20, bold=True)
 
@@ -143,27 +135,27 @@ def main():
         #######################################################################
         ### Drawing Code
         #######################################################################
-        screen.fill(BLACK)              # Set the screen background
+        screen.fill(BLACK)                                  # Screen background
         t = pygame.time.get_ticks()/1000 * TimeFactor
 
-        for circYObj in CircY:
+        for circYObj in CircY:                              # Draw Left Circle
             circYObj.newRadius(t)
             circYObj.draw(screen)
 
-        for j in range(numRow):
+        for j in range(numRow):                             # Draw plot
             Xpos = Spacing + (t-toffset) * 20
             if Xpos > ScrWid-Gap:
-                toffset = t 
+                toffset = t
             Xpos = Spacing + (t-toffset) * 20
 
             TrigPlots[j].addsegment(Xpos,CircY[j].endY)
             TrigPlots[j].draw(screen)
 
         outText = f"FPS:{clock.get_fps():.2f}"
-        textsurface = myfont.render(outText, True, WHITE) #render
-        clock.tick(60)                  # Limit to 60 frames per second
-        screen.blit(textsurface,(0,0))  # Draw text
-        pygame.display.update()         # update the screen with what we've drawn.
+        textsurface = myfont.render(outText, True, WHITE)   # Render Text
+        clock.tick(60)                                      # Limit to 60 fps
+        screen.blit(textsurface,(0,0))                      # Draw text
+        pygame.display.update()                             # Display drawing to screen
     #End While
     pygame.quit()
  
